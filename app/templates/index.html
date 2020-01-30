@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/css/style.css" type="text/css">
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/js/script.js"></script>
+
+{% endblock %}
+
+{% block app_content %}
+<body>
+    <font size="12" face="Courier New" ></font>
+    <form method="POST">
+        <h3>Filter Data:</h3>
+        <p>click on attributes to include, and drag slider to filter</p>
+        <div class="hiddenCB">            
+            <div>
+                <input type="checkbox" name="check" id="cb1" value="sent"/><label for="cb1">Sent</label>
+            </div>
+        </div>
+        <div slider id="slider-distance">
+            <div>
+                <div inverse-left style="width:70%;"></div>
+                <div inverse-right style="width:70%;"></div>
+                <div range style="left:0%;right:0%;"></div>
+                <span thumb style="left:0%;"></span>
+                <span thumb style="left:100%;"></span>
+                <div sign style="left:0%;">
+                    <span id="value">{{ slideVals[0]['sent'] }}</span>
+                </div>
+                <div sign style="left:100%;">
+                    <span id="value">{{ slideVals[1]['sent'] }}</span>
+                </div>
+            </div>
+
+            <input type="range" tabindex="0" value="{{ slideVals[0]['sent'] }}" max="{{ slideVals[1]['sent'] }}" min="{{ slideVals[0]['sent'] }}" step="1" name="slide11" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+            
+            <input type="range" tabindex="0" value="{{ slideVals[1]['sent'] }}" max="{{ slideVals[1]['sent'] }}" min="{{ slideVals[0]['sent'] }}" step="1" name="slide12" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+
+        <div class="hiddenCB">            
+            <div>
+                <input type="checkbox" name="check" id="cb2" value="delivered"/><label for="cb2">Delivered</label>
+            </div>
+        </div>
+        <div slider id="slider-distance">
+            <div>
+                <div inverse-left style="width:70%;"></div>
+                <div inverse-right style="width:70%;"></div>
+                <div range style="left:0%;right:0%;"></div>
+                <span thumb style="left:0%;"></span>
+                <span thumb style="left:100%;"></span>
+                <div sign style="left:0%;">
+                    <span id="value">{{ slideVals[0]['delivered'] }}</span>
+                </div>
+                <div sign style="left:100%;">
+                    <span id="value">{{ slideVals[1]['delivered'] }}</span>
+                </div>
+            </div>
+
+            <input type="range" tabindex="0" value="{{ slideVals[0]['delivered'] }}" max="{{ slideVals[1]['delivered'] }}" min="{{ slideVals[0]['delivered'] }}" step="1" name="slide21" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+            
+            <input type="range" tabindex="0" value="{{ slideVals[1]['delivered'] }}" max="{{ slideVals[1]['delivered'] }}" min="{{ slideVals[0]['delivered'] }}" step="1" name="slide22" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+
+        <div class="hiddenCB">            
+            <div>
+                <input type="checkbox" name="check" id="cb3" value="delRate"/><label for="cb3">Delivered Rate (%)</label>
+            </div>
+        </div>
+        <div slider id="slider-distance">
+            <div>
+                <div inverse-left style="width:70%;"></div>
+                <div inverse-right style="width:70%;"></div>
+                <div range style="left:0%;right:0%;"></div>
+                <span thumb style="left:0%;"></span>
+                <span thumb style="left:100%;"></span>
+                <div sign style="left:0%;">
+                    <span id="value">{{ slideVals[0]['delRate'] }}</span>
+                </div>
+                <div sign style="left:100%;">
+                    <span id="value">{{ slideVals[1]['delRate'] }}</span>
+                </div>
+            </div>
+
+            <input type="range" tabindex="0" value="{{ slideVals[0]['delRate'] }}" max="{{ slideVals[1]['delRate'] }}" min="{{ slideVals[0]['delRate'] }}" step="1" name="slide31" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+            
+            <input type="range" tabindex="0" value="{{ slideVals[1]['delRate'] }}" max="{{ slideVals[1]['delRate'] }}" min="{{ slideVals[0]['delRate'] }}" step="1" name="slide32" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+
+        <div class="hiddenCB">            
+            <div>
+                <input type="checkbox" name="check" id="cb4" value="openRate"/><label for="cb4">Open Rate (%)</label>
+            </div>
+        </div>        
+        <div slider id="slider-distance">
+            <div>
+                <div inverse-left style="width:70%;"></div>
+                <div inverse-right style="width:70%;"></div>
+                <div range style="left:0%;right:0%;"></div>
+                <span thumb style="left:0%;"></span>
+                <span thumb style="left:100%;"></span>
+                <div sign style="left:0%;">
+                    <span id="value">{{ slideVals[0]['openRate'] }}</span>
+                </div>
+                <div sign style="left:100%;">
+                    <span id="value">{{ slideVals[1]['openRate'] }}</span>
+                </div>
+            </div>
+
+            <input type="range" tabindex="0" value="{{ slideVals[0]['openRate'] }}" max="{{ slideVals[1]['openRate'] }}" min="{{ slideVals[0]['openRate'] }}" step="1" name="slide41" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+            
+            <input type="range" tabindex="0" value="{{ slideVals[1]['openRate'] }}" max="{{ slideVals[1]['openRate'] }}" min="{{ slideVals[0]['openRate'] }}" step="1" name="slide42" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+
+        <div class="hiddenCB">            
+            <div>
+                <input type="checkbox" name="check" id="cb5" value="clickRate"/><label for="cb5" >Click Rate (%)</label>
+            </div>
+        </div>
+        <div slider id="slider-distance">
+            <div>
+                <div inverse-left style="width:70%;"></div>
+                <div inverse-right style="width:70%;"></div>
+                <div range style="left:0%;right:0%;"></div>
+                <span thumb style="left:0%;"></span>
+                <span thumb style="left:100%;"></span>
+                <div sign style="left:0%;">
+                    <span id="value">{{ slideVals[0]['clickRate'] }}</span>
+                </div>
+                <div sign style="left:100%;">
+                    <span id="value">{{ slideVals[1]['clickRate'] }}</span>
+                </div>
+            </div>
+
+            <input type="range" tabindex="0" value="{{ slideVals[0]['clickRate'] }}" max="{{ slideVals[1]['clickRate'] }}" min="{{ slideVals[0]['clickRate'] }}" step="1" name="slide51" oninput="
+            this.value=Math.min(this.value,this.parentNode.childNodes[5].value-1);
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[1].style.width=value+'%';
+            children[5].style.left=value+'%';
+            children[7].style.left=value+'%';children[11].style.left=value+'%';
+            children[11].childNodes[1].innerHTML=this.value;" />
+            
+            <input type="range" tabindex="0" value="{{ slideVals[1]['clickRate'] }}" max="{{ slideVals[1]['clickRate'] }}" min="{{ slideVals[0]['clickRate'] }}" step="1" name="slide52" oninput="
+            this.value=Math.max(this.value,this.parentNode.childNodes[3].value-(-1));
+            var value=(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.value)-(100/(parseInt(this.max)-parseInt(this.min)))*parseInt(this.min);
+            var children = this.parentNode.childNodes[1].childNodes;
+            children[3].style.width=(100-value)+'%';
+            children[5].style.right=(100-value)+'%';
+            children[9].style.left=value+'%';children[13].style.left=value+'%';
+            children[13].childNodes[1].innerHTML=this.value;" />
+        </div>
+
+        <div class="Sub"><input type="submit" value="submit"></div>
+
+    </form> 
+
+    </div id="tableDiv">
+        <table class="table table-hover">
+            {% for index, row in data.iterrows() %}
+            <tr>
+                <td>
+                    <h4>Date: {{ row.date }}</h4>
+                    <p><ul>
+                        <li>{% if dic['sent'] == 1 %}Sent: {{ row.sent }}{% endif %}</li>
+                        <li>{% if dic['delivered'] == 1 %}Delivered: {{ row.delivered }}{% endif %}</li>
+                        <li>{% if dic['delRate'] == 1 %}Delivered rate: {{ row.delRate }}{% endif %}</li>
+                        <li>{% if dic['openRate'] == 1 %}Open rate: {{ row.openRate }}{% endif %}</li>
+                        <li>{% if dic['clickRate'] == 1 %}Click rate: {{ row.clickRate }}{% endif %}</li>
+                    </ul></p>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+{% endblock %}

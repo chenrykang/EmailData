@@ -1,0 +1,7 @@
+requests
+jsonify
+pandas
+flask
+flask-wtf
+flask-bootstrap
+

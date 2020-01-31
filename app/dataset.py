@@ -83,12 +83,12 @@ class Data():
             template = row[0].split('|')[8]
             
             if sent > 0:
-                delRate = int((delivered/sent))*100
+                delRate = int(float((delivered/sent))*100)
             else:
                 delRate = -1
             if delivered > 0:
-                openRate = int((opened/delivered))*100
-                clickRate = int((clicked/delivered))*100
+                openRate = int(float((opened/delivered))*100)
+                clickRate = int(float((clicked/delivered))*100)
             else:
                 openRate = -1
                 clickRate = -1
